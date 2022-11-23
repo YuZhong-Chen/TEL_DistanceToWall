@@ -1,0 +1,8 @@
+<launch>
+
+    <node name="Docking_Client" pkg="distance_to_wall" type="Docking_Client" output="screen">
+        <param name="Distance" type="double" value="10.0"/>
+
+    </node>
+
+</launch>

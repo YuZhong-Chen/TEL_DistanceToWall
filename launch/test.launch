@@ -2,13 +2,19 @@
 
     <node name="DistanceToWall" pkg="distance_to_wall" type="DistanceToWall" output="screen">
         <param name="DebugMode" type="bool" value="false"/>
-        <param name="Frequency" type="int"  value="10"/>
 
         <!-- Output = a * Input + b -->
-        <param name="Left_a"  type="double"  value="5.0"/>
-        <param name="Left_b"  type="double"  value="0.0"/>
-        <param name="Right_a" type="double"  value="0.0"/>
-        <param name="Right_b" type="double"  value="0.0"/>
+        <param name="Left_a"  type="double"  value="0.0963"/>
+        <param name="Left_b"  type="double"  value="-4.68"/>
+        <param name="Right_a" type="double"  value="0.106"/>
+        <param name="Right_b" type="double"  value="-3.05"/>
+
+        <!-- Car Velocity -->
+        <param name="CarVelocity" type="double" value="0.05"/>
+
+        <param name="Left_Standard"    type="double" value="100.0"/>
+        <param name="Right_Standard"   type="double" value="100.0"/>
+        <param name="CalibrationRange" type="double" value="10.0"/>
 
     </node>
 
