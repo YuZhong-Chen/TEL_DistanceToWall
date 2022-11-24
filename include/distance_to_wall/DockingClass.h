@@ -1,7 +1,8 @@
 #ifndef _DOCKING_H_
 #define _DOCKING_H_
 
-#include "distance_to_wall/Docking.h"
+#include "distance_to_wall/DockingFinish.h"
+#include "distance_to_wall/DockingStart.h"
 #include "geometry_msgs/Twist.h"
 #include "ros/ros.h"
 #include "std_msgs/Float64MultiArray.h"
@@ -12,25 +13,43 @@ class DOCKING {
    public:
     DOCKING();
 
-    void Init(ros::NodeHandle* nh, double Param_Left_a, double Param_Left_b, double Param_Right_a, double Param_Right_b, double Param_CarVelocity);
+    void Init(ros::NodeHandle* nh);
 
     static void CallBack_VL53(const std_msgs::Int16MultiArray::ConstPtr& msg);
-    static bool CallBack_Server(distance_to_wall::Docking::Request& req, distance_to_wall::Docking::Response& res);
+    static bool CallBack_Server(distance_to_wall::DockingStart::Request& req, distance_to_wall::DockingStart::Response& res);
 
     void StartDocking(double TargetDistance);
+    void FinishDocking(bool isSuccess);
 
    private:
     ros::Subscriber VL53_sub;
     ros::Publisher CarVel_pub;
-    ros::ServiceServer Server;
+    ros::ServiceServer DockingStart_Server;
+    ros::ServiceClient DockingFinish_Client;
 
+    bool DebugMode;
+
+    // TODO : Remember to add TimeOut for Arduino. If it doesn't work, return false.
     std_msgs::Float64MultiArray VL53_Data;
     void UpdateData_VL53(const std_msgs::Int16MultiArray::ConstPtr& msg);
 
-    double Param_Left_a;
-    double Param_Left_b;
-    double Param_Right_a;
-    double Param_Right_b;
+    double VL53_Data_LastTime;
+    bool isDataAvailable_VL53;
+    double VL53_Data_TimeOut;
+
+    float VL53_Data_Average;
+
+    double Left_a;
+    double Left_b;
+    double Right_a;
+    double Right_b;
+
+    // For Calibrate Omega. Not used yet.
+    double Left_Standard;
+    double Right_Standard;
+    double CalibrationRange;
+
+    double TargetDistanceError;
 
     double CarVelocity;
     double CurrentCarVelocity;

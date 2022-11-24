@@ -58,7 +58,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  Docking.srv
+  DockingStart.srv
+  DockingFinish.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -155,8 +156,11 @@ include_directories(
 add_executable(DistanceToWall src/DistanceToWall_node.cpp lib/DockingClass.cpp)
 target_link_libraries(DistanceToWall ${catkin_LIBRARIES})
 
-add_executable(Docking_Client src/Docking_Client.cpp)
-target_link_libraries(Docking_Client ${catkin_LIBRARIES})
+add_executable(DockingStart_Client src/DockingStart_Client.cpp)
+target_link_libraries(DockingStart_Client ${catkin_LIBRARIES})
+
+add_executable(DockingFinish_Server src/DockingFinish_Server.cpp)
+target_link_libraries(DockingFinish_Server ${catkin_LIBRARIES})
 
 #############
 ## Install ##

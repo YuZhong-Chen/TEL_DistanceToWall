@@ -1,0 +1,6 @@
+<launch>
+
+    <node name="DockingFinish_Server" pkg="distance_to_wall" type="DockingFinish_Server" output="screen">
+    </node>
+
+</launch>

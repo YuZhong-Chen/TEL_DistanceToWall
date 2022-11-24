@@ -1,19 +1,19 @@
-#include "distance_to_wall/Docking.h"
+#include "distance_to_wall/DockingStart.h"
 #include "ros/ros.h"
 
 static double Distance;
 
 int main(int argc, char **argv) {
-    ros::init(argc, argv, "Docking_client");
+    ros::init(argc, argv, "DockingStart_client");
 
     ros::NodeHandle nh;
-    ros::ServiceClient client = nh.serviceClient<distance_to_wall::Docking>("/DockingService");
+    ros::ServiceClient client = nh.serviceClient<distance_to_wall::DockingStart>("/DockingStart");
 
-    if (!nh.getParam("/Docking_Client/Distance", Distance)) {
+    if (!nh.getParam("/DockingStart_Client/Distance", Distance)) {
         Distance = 0;
     }
 
-    distance_to_wall::Docking srv;
+    distance_to_wall::DockingStart srv;
 
     srv.request.Distance = Distance;
 

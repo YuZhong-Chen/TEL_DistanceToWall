@@ -9,13 +9,20 @@
         <param name="Right_a" type="double"  value="0.106"/>
         <param name="Right_b" type="double"  value="-3.05"/>
 
+        <!-- Finish = fabs(VL53_Distance - Target_Distance) < TargetDistanceError -->
+        <param name="TargetDistanceError" type="double"  value="1.0"/>
+
         <!-- Car Velocity -->
         <param name="CarVelocity" type="double" value="0.05"/>
 
+        <!-- For Omega Calibration. Not used yet. -->
         <param name="Left_Standard"    type="double" value="100.0"/>
         <param name="Right_Standard"   type="double" value="100.0"/>
         <param name="CalibrationRange" type="double" value="10.0"/>
 
+        <!-- VL53 Data Timeout.  -->
+        <!-- Be careful, it's should not less than CheckFrequency[10 hz] of the while loop in StartDocking(). -->
+        <param name="VL53_Data_TimeOut" type="double" value="2.0"/>
     </node>
 
 </launch>
