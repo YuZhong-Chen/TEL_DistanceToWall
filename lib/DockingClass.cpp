@@ -121,7 +121,7 @@ void DOCKING::FinishDocking(bool isSuccess) {
         ROS_ERROR("DockingClass: Fail to Docking.");
     }
 
-    for (int i = 0; i < 5; i++) {
+    while (true) {
         if (DockingFinish_Client.call(srv)) {
             break;
         } else {
