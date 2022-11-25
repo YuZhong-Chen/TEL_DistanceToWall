@@ -11,17 +11,25 @@ int main(int argc, char** argv) {
     // ------------------------------------------------------------
     // Setup the Ros Node.
     // ------------------------------------------------------------
-    ros::NodeHandle nh("~");
+    ros::NodeHandle nh_Public;
+    ros::NodeHandle nh_Private("~");
 
     // ------------------------------------------------------------
     // Init Docking.
     // ------------------------------------------------------------
-    Docking.Init(&nh);
+    Docking.Init(&nh_Public, &nh_Private);
 
     // ------------------------------------------------------------
-    // Ros spin.
+    // Ros loop.
     // ------------------------------------------------------------
-    ros::spin();
+
+    ros::Rate CheckFrequency(10);
+    while (nh_Public.ok()) {
+        Docking.UpdateStatus();
+
+        ros::spinOnce();
+        CheckFrequency.sleep();
+    }
 
     return 0;
 }

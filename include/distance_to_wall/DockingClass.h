@@ -13,13 +13,15 @@ class DOCKING {
    public:
     DOCKING();
 
-    void Init(ros::NodeHandle* nh);
+    void Init(ros::NodeHandle* nh_Public, ros::NodeHandle* nh_Private);
 
     static void CallBack_VL53(const std_msgs::Int16MultiArray::ConstPtr& msg);
     static bool CallBack_Server(distance_to_wall::DockingStart::Request& req, distance_to_wall::DockingStart::Response& res);
 
     void StartDocking(double TargetDistance);
     void FinishDocking(bool isSuccess);
+
+    void UpdateStatus();
 
    private:
     ros::Subscriber VL53_sub;
@@ -29,13 +31,20 @@ class DOCKING {
 
     bool DebugMode;
 
+    bool isDocking;
+
     // TODO : Remember to add TimeOut for Arduino. If it doesn't work, return false.
     std_msgs::Float64MultiArray VL53_Data;
     void UpdateData_VL53(const std_msgs::Int16MultiArray::ConstPtr& msg);
 
+    geometry_msgs::Twist CarVelocity_msg;
+
     double VL53_Data_LastTime;
     bool isDataAvailable_VL53;
     double VL53_Data_TimeOut;
+    int VL53_DataTimeOut_count;
+
+    double TargetDistance;
 
     float VL53_Data_Average;
 

@@ -1,7 +1,7 @@
 <launch>
 
     <node name="DockingStart_Client" pkg="distance_to_wall" type="DockingStart_Client" output="screen">
-        <!-- In some unit. See what unit VL53 used. -->
+        <!-- Unit : cm. -->
         <param name="Distance" type="double" value="10.0"/>
 
     </node>
