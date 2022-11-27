@@ -84,10 +84,11 @@ void DOCKING::StartDocking(double TargetDistance) {
 void DOCKING::UpdateStatus() {
     if (isDocking) {
         if (fabs(ros::Time::now().toSec() - VL53_Data_LastTime) > VL53_Data_TimeOut) {
-            CarVelocity_msg.linear.x = 0.0;
-            CarVel_pub.publish(CarVelocity_msg);
-
-            if (++VL53_DataTimeOut_count >= 10) {
+            if (++VL53_DataTimeOut_count >= 2) {
+                CarVelocity_msg.linear.x = 0.0;
+                CarVel_pub.publish(CarVelocity_msg);
+            }
+            if (VL53_DataTimeOut_count >= 10) {
                 FinishDocking(false);
             }
         } else if (fabs(TargetDistance - VL53_Data_Average) > TargetDistanceError) {
